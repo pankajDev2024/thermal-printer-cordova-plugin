@@ -27,7 +27,11 @@ import com.dantsu.escposprinter.connection.usb.UsbConnection;
 import com.dantsu.escposprinter.connection.usb.UsbConnections;
 import com.dantsu.escposprinter.exceptions.EscPosConnectionException;
 import com.dantsu.escposprinter.textparser.PrinterTextParserImg;
-import com.dantsu.thermalprinter.async.*;
+import com.dantsu.thermalprinter.async.AsyncBluetoothEscPosPrint;
+import com.dantsu.thermalprinter.async.AsyncEscPosPrint;
+import com.dantsu.thermalprinter.async.AsyncEscPosPrinter;
+import com.dantsu.thermalprinter.async.AsyncTcpEscPosPrint;
+import com.dantsu.thermalprinter.async.AsyncUsbEscPosPrint;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
