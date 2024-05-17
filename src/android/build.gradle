@@ -1,9 +1,21 @@
-allprojects {
+// allprojects {
+//     repositories {
+//         maven { url 'https://jitpack.io' }
+//     }
+// }
+
+// dependencies {
+//     implementation 'com.github.pankajDev2024:ESCPOS-ThermalPrinter-Android:3.2.1'
+// }
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
+        mavenCentral()
         maven { url 'https://jitpack.io' }
     }
 }
 
 dependencies {
-    implementation 'com.github.pankajDev2024:ESCPOS-ThermalPrinter-Android:3.2.1'
+	implementation 'com.github.pankajDev2024:ESCPOS-ThermalPrinter-Android:3.2.1'
 }
