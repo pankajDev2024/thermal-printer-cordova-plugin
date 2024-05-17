@@ -27,11 +27,6 @@ import com.dantsu.escposprinter.connection.usb.UsbConnection;
 import com.dantsu.escposprinter.connection.usb.UsbConnections;
 import com.dantsu.escposprinter.exceptions.EscPosConnectionException;
 import com.dantsu.escposprinter.textparser.PrinterTextParserImg;
-import com.dantsu.thermalprinter.async.AsyncBluetoothEscPosPrint;
-import com.dantsu.thermalprinter.async.AsyncEscPosPrint;
-import com.dantsu.thermalprinter.async.AsyncEscPosPrinter;
-import com.dantsu.thermalprinter.async.AsyncTcpEscPosPrint;
-import com.dantsu.thermalprinter.async.AsyncUsbEscPosPrint;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
@@ -286,29 +281,52 @@ public class ThermalPrinterCordovaPlugin extends CordovaPlugin {
         callbackContext.success(printers);
     }
 
+//     private void printFormattedText(CallbackContext callbackContext, String action, JSONObject data) throws JSONException {
+
+
+// //        EscPosPrinter printer = this.getPrinter(callbackContext, data);
+//         try {
+
+//             DeviceConnection deviceConnection = this.getPrinterConnection(callbackContext, data);
+//             AsyncEscPosPrinter asyncEscPosPrinter = new AsyncEscPosPrinter(deviceConnection, 203, 48f, 32);
+//             asyncEscPosPrinter.addTextToPrint(data);
+//             if (deviceConnection == null) {
+//                 throw new JSONException("Device not found");
+//             }
+
+//             AsyncBluetoothEscPosPrint printer=new AsyncBluetoothEscPosPrint(callbackContext);
+//             printer.execute(asyncEscPosPrinter);
+// //            int dotsFeedPaper = data.has("mmFeedPaper")
+// //                ? printer.mmToPx((float) data.getDouble("mmFeedPaper"))
+// //                : data.optInt("dotsFeedPaper", 20);
+// //            if (action.endsWith("Cut")) {
+// //                printer.printFormattedTextAndCut(data.getString("text"), dotsFeedPaper);
+// //            } else {
+// //                printer.printFormattedText(data.getString("text"), dotsFeedPaper);
+// //            }
+//             callbackContext.success();
+//         } catch (EscPosConnectionException e) {
+//             callbackContext.error(new JSONObject(new HashMap<String, Object>() {{
+//                 put("error", e.getMessage());
+//             }}));
+//         } catch (Exception e) {
+//             callbackContext.error(new JSONObject(new HashMap<String, Object>() {{
+//                 put("error", e.getMessage());
+//             }}));
+//         }
+//     }
+    
     private void printFormattedText(CallbackContext callbackContext, String action, JSONObject data) throws JSONException {
-
-
-//        EscPosPrinter printer = this.getPrinter(callbackContext, data);
+        EscPosPrinter printer = this.getPrinter(callbackContext, data);
         try {
-
-            DeviceConnection deviceConnection = this.getPrinterConnection(callbackContext, data);
-            AsyncEscPosPrinter asyncEscPosPrinter = new AsyncEscPosPrinter(deviceConnection, 203, 48f, 32);
-            asyncEscPosPrinter.addTextToPrint(data);
-            if (deviceConnection == null) {
-                throw new JSONException("Device not found");
+            int dotsFeedPaper = data.has("mmFeedPaper")
+                ? printer.mmToPx((float) data.getDouble("mmFeedPaper"))
+                : data.optInt("dotsFeedPaper", 40);
+            if (action.endsWith("Cut")) {
+                printer.printFormattedTextAndCut(data.getString("text"), dotsFeedPaper);
+            } else {
+                printer.printFormattedText(data.getString("text"), dotsFeedPaper);
             }
-
-            AsyncBluetoothEscPosPrint printer=new AsyncBluetoothEscPosPrint(callbackContext);
-            printer.execute(asyncEscPosPrinter);
-//            int dotsFeedPaper = data.has("mmFeedPaper")
-//                ? printer.mmToPx((float) data.getDouble("mmFeedPaper"))
-//                : data.optInt("dotsFeedPaper", 20);
-//            if (action.endsWith("Cut")) {
-//                printer.printFormattedTextAndCut(data.getString("text"), dotsFeedPaper);
-//            } else {
-//                printer.printFormattedText(data.getString("text"), dotsFeedPaper);
-//            }
             callbackContext.success();
         } catch (EscPosConnectionException e) {
             callbackContext.error(new JSONObject(new HashMap<String, Object>() {{
@@ -320,29 +338,6 @@ public class ThermalPrinterCordovaPlugin extends CordovaPlugin {
             }}));
         }
     }
-    
-    // private void printFormattedText(CallbackContext callbackContext, String action, JSONObject data) throws JSONException {
-    //     EscPosPrinter printer = this.getPrinter(callbackContext, data);
-    //     try {
-    //         int dotsFeedPaper = data.has("mmFeedPaper")
-    //             ? printer.mmToPx((float) data.getDouble("mmFeedPaper"))
-    //             : data.optInt("dotsFeedPaper", 40);
-    //         if (action.endsWith("Cut")) {
-    //             printer.printFormattedTextAndCut(data.getString("text"), dotsFeedPaper);
-    //         } else {
-    //             printer.printFormattedText(data.getString("text"), dotsFeedPaper);
-    //         }
-    //         callbackContext.success();
-    //     } catch (EscPosConnectionException e) {
-    //         callbackContext.error(new JSONObject(new HashMap<String, Object>() {{
-    //             put("error", e.getMessage());
-    //         }}));
-    //     } catch (Exception e) {
-    //         callbackContext.error(new JSONObject(new HashMap<String, Object>() {{
-    //             put("error", e.getMessage());
-    //         }}));
-    //     }
-    // }
 
     private void getEncoding(CallbackContext callbackContext, JSONObject data) throws JSONException {
         EscPosPrinter printer = this.getPrinter(callbackContext, data);
