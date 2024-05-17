@@ -321,7 +321,7 @@ public class ThermalPrinterCordovaPlugin extends CordovaPlugin {
         try {
             int dotsFeedPaper = data.has("mmFeedPaper")
                 ? printer.mmToPx((float) data.getDouble("mmFeedPaper"))
-                : data.optInt("dotsFeedPaper", 40);
+                : data.optInt("dotsFeedPaper", 20);
             if (action.endsWith("Cut")) {
                 printer.printFormattedTextAndCut(data.getString("text"), dotsFeedPaper);
             } else {
