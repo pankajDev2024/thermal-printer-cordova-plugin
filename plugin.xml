@@ -26,6 +26,6 @@
 
         <source-file src="src/android/ThermalPrinterCordovaPlugin.java" target-dir="src/de/paystory/thermal_printer" />
         <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
-                <framework src="com.github.pankajDev2024:ESCPOS-ThermalPrinter-Android:3.2.1"/>
+                <framework src="com.github.pankajDev2024:ESCPOS-ThermalPrinter-Android:3.3.0"/>
     </platform>
 </plugin>
