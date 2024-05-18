@@ -58,7 +58,7 @@ public class ThermalPrinterCordovaPlugin extends CordovaPlugin {
 
     @Override
     public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) {
-        cordova.getThreadPool().execute(() -> {
+        // cordova.getThreadPool().execute(() -> {
             try {
                 if (action.equals("listPrinters")) {
                     try {
@@ -82,7 +82,7 @@ public class ThermalPrinterCordovaPlugin extends CordovaPlugin {
             } catch (JSONException exception) {
                 callbackContext.error(exception.getMessage());
             }
-        });
+        // });
 
         return true;
     }
@@ -326,6 +326,7 @@ public class ThermalPrinterCordovaPlugin extends CordovaPlugin {
             if (deviceConnection == null) {
                 throw new JSONException("Device not found");
             }
+            asyncEscPosPrinter.addTextToPrint(data.get("text").toString());
             AsyncBluetoothEscPosPrint printer1=new AsyncBluetoothEscPosPrint(this.cordova.getActivity());
             printer1.execute(asyncEscPosPrinter);
         }catch(Exception e){
