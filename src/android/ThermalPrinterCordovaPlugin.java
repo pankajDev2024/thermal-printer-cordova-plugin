@@ -318,14 +318,15 @@ public class ThermalPrinterCordovaPlugin extends CordovaPlugin {
 //         }
 //     }
 
-     private void printFormattedText(CallbackContext callbackContext, String action, JSONObject data){
+    private void printFormattedText(CallbackContext callbackContext, String action, JSONObject data){
         try{
             EscPosPrinter printer = this.getPrinter(callbackContext, data);
+            DeviceConnection deviceConnection = this.getPrinterConnection(callbackContext,data);
             AsyncEscPosPrinter asyncEscPosPrinter = new AsyncEscPosPrinter(deviceConnection, 203, 48f, 32);
             if (deviceConnection == null) {
                 throw new JSONException("Device not found");
             }
-            AsyncBluetoothEscPosPrint printer1=new AsyncBluetoothEscPosPrint(callbackContext);
+            AsyncBluetoothEscPosPrint printer1=new AsyncBluetoothEscPosPrint(this.cordova.getActivity());
             printer1.execute(asyncEscPosPrinter);
         }catch(Exception e){
             e.printStackTrace();
