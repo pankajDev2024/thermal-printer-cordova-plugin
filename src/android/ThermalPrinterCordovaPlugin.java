@@ -283,41 +283,6 @@ public class ThermalPrinterCordovaPlugin extends CordovaPlugin {
         callbackContext.success(printers);
     }
 
-//     private void printFormattedText(CallbackContext callbackContext, String action, JSONObject data) throws JSONException {
-
-
-// //        EscPosPrinter printer = this.getPrinter(callbackContext, data);
-//         try {
-
-//             DeviceConnection deviceConnection = this.getPrinterConnection(callbackContext, data);
-//             AsyncEscPosPrinter asyncEscPosPrinter = new AsyncEscPosPrinter(deviceConnection, 203, 48f, 32);
-//             asyncEscPosPrinter.addTextToPrint(data);
-//             if (deviceConnection == null) {
-//                 throw new JSONException("Device not found");
-//             }
-
-//             AsyncBluetoothEscPosPrint printer=new AsyncBluetoothEscPosPrint(callbackContext);
-//             printer.execute(asyncEscPosPrinter);
-// //            int dotsFeedPaper = data.has("mmFeedPaper")
-// //                ? printer.mmToPx((float) data.getDouble("mmFeedPaper"))
-// //                : data.optInt("dotsFeedPaper", 20);
-// //            if (action.endsWith("Cut")) {
-// //                printer.printFormattedTextAndCut(data.getString("text"), dotsFeedPaper);
-// //            } else {
-// //                printer.printFormattedText(data.getString("text"), dotsFeedPaper);
-// //            }
-//             callbackContext.success();
-//         } catch (EscPosConnectionException e) {
-//             callbackContext.error(new JSONObject(new HashMap<String, Object>() {{
-//                 put("error", e.getMessage());
-//             }}));
-//         } catch (Exception e) {
-//             callbackContext.error(new JSONObject(new HashMap<String, Object>() {{
-//                 put("error", e.getMessage());
-//             }}));
-//         }
-//     }
-
     private void printFormattedText(CallbackContext callbackContext, String action, JSONObject data){
         try{
             EscPosPrinter printer = this.getPrinter(callbackContext, data);
