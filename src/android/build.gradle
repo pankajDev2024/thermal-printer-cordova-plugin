@@ -18,5 +18,5 @@ allprojects {
 // }
 
 dependencies {
-	implementation 'com.github.pankajDev2024:ESCPOS-ThermalPrinter-Android:3.3.0'
+	implementation 'com.github.pankajDev2024:ESCPOS-ThermalPrinter-Android:3.4.0'
 }
