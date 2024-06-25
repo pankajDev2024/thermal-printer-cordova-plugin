@@ -294,6 +294,7 @@ public class ThermalPrinterCordovaPlugin extends CordovaPlugin {
             asyncEscPosPrinter.addTextToPrint(data.get("text").toString());
             AsyncBluetoothEscPosPrint printer1=new AsyncBluetoothEscPosPrint(this.cordova.getActivity());
             printer1.execute(asyncEscPosPrinter);
+            callbackContext.success();
         }catch(Exception e){
             e.printStackTrace();
             callbackContext.error(new JSONObject(new HashMap<String, Object>() {{
