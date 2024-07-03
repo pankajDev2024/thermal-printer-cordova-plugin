@@ -292,9 +292,26 @@ public class ThermalPrinterCordovaPlugin extends CordovaPlugin {
                 throw new JSONException("Device not found");
             }
             asyncEscPosPrinter.addTextToPrint(data.get("text").toString());
-            AsyncBluetoothEscPosPrint printer1=new AsyncBluetoothEscPosPrint(this.cordova.getActivity());
+
+            // Create AsyncBluetoothEscPosPrint instance
+            AsyncBluetoothEscPosPrint printer1 = new AsyncBluetoothEscPosPrint(this.cordova.getActivity()) {
+                @Override
+                protected void onPostExecute(PrinterStatus printerStatus) {
+                    super.onPostExecute(printerStatus);
+
+                    if (printerStatus != null && AsyncEscPosPrint.FINISH_SUCCESS ==printerStatus.getPrinterStatus()) {
+                        // Printing completed successfully
+                        callbackContext.success();
+                    } else {
+                        // Printing encountered an error
+                        callbackContext.error("Printing failed");
+                    }
+                }
+            };
+
+            //AsyncBluetoothEscPosPrint printer1=new AsyncBluetoothEscPosPrint(this.cordova.getActivity());
             printer1.execute(asyncEscPosPrinter);
-            callbackContext.success();
+            //callbackContext.success();
         }catch(Exception e){
             e.printStackTrace();
             callbackContext.error(new JSONObject(new HashMap<String, Object>() {{
@@ -302,6 +319,26 @@ public class ThermalPrinterCordovaPlugin extends CordovaPlugin {
             }}));
         }
     }
+    
+    // private void printFormattedText(CallbackContext callbackContext, String action, JSONObject data){
+    //     try{
+    //         EscPosPrinter printer = this.getPrinter(callbackContext, data);
+    //         DeviceConnection deviceConnection = this.getPrinterConnection(callbackContext,data);
+    //         AsyncEscPosPrinter asyncEscPosPrinter = new AsyncEscPosPrinter(deviceConnection, 203, 48f, 32);
+    //         if (deviceConnection == null) {
+    //             throw new JSONException("Device not found");
+    //         }
+    //         asyncEscPosPrinter.addTextToPrint(data.get("text").toString());
+    //         AsyncBluetoothEscPosPrint printer1=new AsyncBluetoothEscPosPrint(this.cordova.getActivity());
+    //         printer1.execute(asyncEscPosPrinter);
+    //         callbackContext.success();
+    //     }catch(Exception e){
+    //         e.printStackTrace();
+    //         callbackContext.error(new JSONObject(new HashMap<String, Object>() {{
+    //             put("error", e.getMessage());
+    //         }}));
+    //     }
+    // }
     
     // private void printFormattedText(CallbackContext callbackContext, String action, JSONObject data) throws JSONException {
     //     EscPosPrinter printer = this.getPrinter(callbackContext, data);
