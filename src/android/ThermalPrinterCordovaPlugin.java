@@ -18,6 +18,7 @@ import android.util.Base64;
 
 import com.dantsu.escposprinter.EscPosCharsetEncoding;
 import com.dantsu.escposprinter.EscPosPrinter;
+import com.dantsu.escposprinter.async.AsyncEscPosPrint;
 import com.dantsu.escposprinter.connection.DeviceConnection;
 import com.dantsu.escposprinter.connection.bluetooth.BluetoothConnection;
 import com.dantsu.escposprinter.connection.bluetooth.BluetoothConnections;
