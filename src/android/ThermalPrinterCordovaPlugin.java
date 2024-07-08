@@ -336,7 +336,7 @@ public class ThermalPrinterCordovaPlugin extends CordovaPlugin {
                 callbackContext.success(); // Trigger success callback after delay
                 // }
             }
-        }, 500); // Define your delay duration in milliseconds (e.g., 3000 for 3 seconds)
+        }, 1000); // Define your delay duration in milliseconds (e.g., 3000 for 3 seconds)
     }
     
     // private void printFormattedText(CallbackContext callbackContext, String action, JSONObject data){
