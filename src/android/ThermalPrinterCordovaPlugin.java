@@ -2,6 +2,8 @@ package de.paystory.thermal_printer;
 
 import static android.app.PendingIntent.FLAG_MUTABLE;
 
+import static androidx.core.app.FrameMetricsAggregator.DELAY_DURATION;
+
 import android.Manifest;
 import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
@@ -14,6 +16,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
+import android.os.Handler;
 import android.util.Base64;
 
 import com.dantsu.escposprinter.EscPosCharsetEncoding;
@@ -302,7 +305,8 @@ public class ThermalPrinterCordovaPlugin extends CordovaPlugin {
 
                     if (printerStatus != null && AsyncEscPosPrint.FINISH_SUCCESS ==printerStatus.getPrinterStatus()) {
                         // Printing completed successfully
-                        callbackContext.success();
+                        //callbackContext.success();
+                        handleSuccessAfterDelay(callbackContext);
                     } else {
                         // Printing encountered an error
                         callbackContext.error("Printing failed");
@@ -319,6 +323,20 @@ public class ThermalPrinterCordovaPlugin extends CordovaPlugin {
                 put("error", e.getMessage());
             }}));
         }
+    }
+
+    // Method to handle success callback after a delay
+    private void handleSuccessAfterDelay(CallbackContext callbackContext) {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Check condition here if needed
+                // For example, if (condition) {
+                callbackContext.success(); // Trigger success callback after delay
+                // }
+            }
+        }, 500); // Define your delay duration in milliseconds (e.g., 3000 for 3 seconds)
     }
     
     // private void printFormattedText(CallbackContext callbackContext, String action, JSONObject data){
